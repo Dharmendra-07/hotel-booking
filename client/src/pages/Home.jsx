@@ -1,12 +1,14 @@
 import React from "react";
 import Hero from "../components/hero";
+import FeaturedDestination from "../components/FeaturedDestination.jsx";
 
 const Home = () =>{
   return(
     <>
       <Hero />
+      <FeaturedDestination />
     </>
   )
 }
 
-export default Home
+export default Home;
