@@ -7,27 +7,26 @@ import AllRooms from './pages/AllRooms.jsx';
 import RoomDetails from './pages/RoomDetails.jsx';
 import MyBookings from './pages/MyBookings.jsx';
 import HotelReg from './components/HotelReg.jsx';
-import Layout from './pages/hotelOwner/ListRoom.jsx';
+import Layout from './pages/hotelOwner/Layout.jsx';
 
-const App = () =>{
+const App = () => {
 
   const isOwnerPath = useLocation().pathname.includes('owner');
 
   return (
     <div>
-      { !isOwnerPath && <Navbar /> }
+      {!isOwnerPath && <Navbar />}
       {false && <HotelReg />}
       <div className='min-h-[70vh]'>
         <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/rooms' element={<AllRooms/>} />
-          <Route path='/rooms/:id' element={<RoomDetails/>} />
-          <Route path='/my-bookings' element={<MyBookings/>} />
-          <Route path='/owner' element={<Layout />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/rooms' element={<AllRooms />} />
+          <Route path='/rooms/:id' element={<RoomDetails />} />
+          <Route path='/my-bookings' element={<MyBookings />} />
           <Route path='/owner' element={<Layout />} />
         </Routes>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }
