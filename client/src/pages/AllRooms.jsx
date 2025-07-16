@@ -36,7 +36,7 @@ const AllRooms = () => {
 
   const roomTypes = ["single Bed", "Double Bed", "Luxury Room", "Family Suite"];
   const priceRanges = ["0 to 500", "500 to 1000", "1000 to 2000", "2000 to 3000"];
-  const sortOprions = ["Price Low to High", "Price High to Low", "Newest First"];
+  const sortOptions = ["Price Low to High", "Price High to Low", "Newest First"];
 
   return (
     <div className="flex flex-col-reverse lg:flex-row items-start justify-between pt-28 md:pt-35 px-4 md:px-16 lg:px-24 xl:px-32">
@@ -140,9 +140,9 @@ const AllRooms = () => {
             ))}
           </div>
 
-          <div className="px-5 pt-5">
+          <div className="px-5 pt-5 pb-5">
             <p className="font-medium text-gray-800 pb-2">Sort By</p>
-            {sortOprions.map((option, index) => (
+            {sortOptions.map((option, index) => (
               <RadioButton key={index} label={option} />
             ))}
           </div>
