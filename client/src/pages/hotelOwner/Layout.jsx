@@ -4,7 +4,7 @@ import Sidebar from "../../components/hotelOwner/Sidebar";
 import { Outlet } from "react-router-dom";
 
 
-const Layout = ()=>{
+const Layout = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
