@@ -1,5 +1,5 @@
 import React from "react";
-import { assets } from "../assets/assets";
+import { assets, cities } from "../assets/assets";
 
 const HotelReg = () =>{
   return(
@@ -37,7 +37,7 @@ const HotelReg = () =>{
           {/* Select City Drop Down */}
 
           <div className="w-full mt-4 max-w-60 mt-auto">
-            <label htmlFor="city" className="font-medium text-gray-500"></label>
+            <label htmlFor="city" className="font-medium text-gray-500">City</label>
             <select id="city" className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" required>
               <option value="">Select City</option>
               {cities.map((city)=>(
