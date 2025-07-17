@@ -2,11 +2,16 @@ import express from 'express';
 import "dotenv/config";
 import cors from 'cors';
 import connectDb from './configs/db.js';
+import { clerkMiddleware } from '@clerk/express'
 
 connectDb()
 
 const app = express()
 app.use(cors()) // Enable Cross-Origin Resource Sharing
+
+// Middleware
+app.use(express.json())
+app.use(clerkMiddleware())
 
 app.get('/',(req, res)=> res.send("API is working"))
 
