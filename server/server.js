@@ -1,7 +1,9 @@
 import express from 'express';
 import "dotenv/config";
 import cors from 'cors';
+import connectDb from './configs/db.js';
 
+connectDb()
 
 const app = express()
 app.use(cors()) // Enable Cross-Origin Resource Sharing
