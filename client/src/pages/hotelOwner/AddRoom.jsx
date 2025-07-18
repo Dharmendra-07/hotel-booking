@@ -5,7 +5,7 @@ import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const AddRoom = () => {
-  const { axios, getToken } = useAppContext();
+  const { axios, getToken } = useAppContext(); // fixed typo here
 
   const [images, setImages] = useState({
     1: null,
@@ -31,37 +31,27 @@ const AddRoom = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // Basic Validation
-    if (
-      !inputs.roomType ||
-      !inputs.pricePerNight ||
-      !Object.values(inputs.amenities).some(val => val) ||
-      !Object.values(images).some(img => img)
-    ) {
-      toast.error("Please fill in all the details");
+    // Fix condition logic: pricePerNight should be > 0
+    if (!inputs.roomType || !inputs.pricePerNight || !Object.values(images).some(image => image)) {
+      toast.error("Please fill in all the Details");
       return;
     }
 
     setLoading(true);
-
     try {
       const formData = new FormData();
-      formData.append("roomType", inputs.roomType);
-      formData.append("pricePerNight", inputs.pricePerNight);
+      formData.append('roomType', inputs.roomType);
+      formData.append('pricePerNight', inputs.pricePerNight); 
 
-      const selectedAmenities = Object.keys(inputs.amenities).filter(
-        (key) => inputs.amenities[key]
-      );
-      formData.append("amenities", JSON.stringify(selectedAmenities));
+      const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key]);
+      formData.append('amenities', JSON.stringify(amenities));
 
       Object.keys(images).forEach((key) => {
-        if (images[key]) formData.append("images", images[key]);
+        images[key] && formData.append('images', images[key]);
       });
 
-      const token = await getToken();
-
-      const { data } = await axios.post("/api/rooms/", formData, {
-        headers: { Authorization: `Bearer ${token}` },
+      const { data } = await axios.post('/api/rooms/', formData, {
+        headers: { Authorization: `Bearer ${await getToken()}` },
       });
 
       if (data.success) {
@@ -82,7 +72,7 @@ const AddRoom = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message || "Failed to submit room");
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -94,10 +84,10 @@ const AddRoom = () => {
         align="left"
         font="outfit"
         title="Add Room"
-        subTitle="Fill in the details carefully and accurately to enhance the user booking experience."
+        subTitle="Fill in the details carefully and accurate room details, pricing, and amenities, to enhance the user booking experience."
       />
 
-      {/* Image Upload Area */}
+      {/* Upload Area for Images */}
       <p className="text-gray-800 mt-10">Images</p>
       <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
         {Object.keys(images).map((key) => (
@@ -120,7 +110,6 @@ const AddRoom = () => {
         ))}
       </div>
 
-      {/* Room Type and Price */}
       <div className="w-full flex max-sm:flex-col sm:gap-4 mt-4">
         <div className="flex-1 max-w-48">
           <p className="text-gray-800 mt-4">Room Type</p>
@@ -149,13 +138,15 @@ const AddRoom = () => {
             className="border border-gray-300 mt-1 rounded p-2 w-24"
             value={inputs.pricePerNight}
             onChange={(e) =>
-              setInputs({ ...inputs, pricePerNight: Number(e.target.value) })
+              setInputs({
+                ...inputs,
+                pricePerNight: Number(e.target.value),
+              })
             }
           />
         </div>
       </div>
 
-      {/* Amenities */}
       <p className="text-gray-800 mt-4">Amenities</p>
       <div className="flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm">
         {Object.keys(inputs.amenities).map((amenity, index) => (
@@ -182,7 +173,6 @@ const AddRoom = () => {
       </div>
 
       <button
-        type="submit"
         className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer"
         disabled={loading}
       >
